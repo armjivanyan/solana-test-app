@@ -7,14 +7,14 @@ export const InputFormWallet: FC = () => {
     const { publicKey, sendTransaction } = useWallet();
     const { connection } = useConnection();
     const [transactionLink, setTransactionLink] = useState<string>("");
-    const [donationInfo, setDonationInfo] = useState<string | null>(null);
+    const [donationInfo, setDonationInfo] = useState<any>(null);
 
     useEffect(() => {
         if(connection && publicKey) handleGet();
     }, [publicKey, connection]);
 
     const handleGet = async () => {
-        const response = await fetch('http://localhost:3000/api/actions/donate');
+        const response = await fetch('/api/actions/donate');
         const data = await response.json();
         setDonationInfo(data);
     }
@@ -30,7 +30,7 @@ export const InputFormWallet: FC = () => {
 
         try {
 
-            const response = await fetch('http://localhost:3000/api/actions/donate', {
+            const response = await fetch('/api/actions/donate', {
                 method: "POST",
                 body: JSON.stringify({
                     account: publicKey,
